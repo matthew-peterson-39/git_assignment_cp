@@ -74,15 +74,15 @@ def get_str_input(input_option):
 def add_task(task_list):
     pass
 
-def mark_complete(task_list):
-    pass
-
 def edit_task(task_list):
     pass
 
 def remove_task(task_list):
-    pass
+    display('WITH_NUMBERS', task_list)
+    index_number = int(input('Select the item to remove: '))
+    task_list.pop(index_number - 1)  # Remove the task from the list
 
+#
 def save_to_file(task_list):
     pass
 
