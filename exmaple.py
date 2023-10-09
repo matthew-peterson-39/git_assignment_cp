@@ -61,6 +61,22 @@ def get_menu_input():
     except ValueError:
         return print('Invalid menu input.')
     return menu_input   
-# is this where we want the add function?
+
+# TODO : Implement these tasks. Each should take a task_list arguement and returns the updated version of the list after
+# item has been added, removed, edited, or completed.
+def add_task(task_list):
+    pass
+
+def edit_task(task_list):
+    pass
+
+def remove_task(task_list):
+    pass
+
+#
+def save_to_file(task_list):
+    pass
+
+# Is this where we want the add function?
 
 main()
