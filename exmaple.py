@@ -6,7 +6,7 @@ def main():
     TASK_JSON = 'tasks.json'
     task_list = initialize_task_list(TASK_JSON)
     display_menu()
-    menu_input = get_menu_input()
+    menu_input = get_int_input('Menu')
     #start loop
     if menu_input == 1: # View
         display_without_numbers(task_list)
@@ -55,9 +55,16 @@ def display_with_numbers(task_list):
         list_number += 1
     return
 
-def get_menu_input():
+def get_int_input(input_option):
     try:
-        menu_input = int(input('--> Menu selection:'))
+        menu_input = int(input(f'--> {input_option} selection:'))
+    except ValueError:
+        return print('Invalid menu input.')
+    return menu_input  
+
+def get_str_input(input_option):
+    try:
+        menu_input = input(f'--> {input_option} selection:')
     except ValueError:
         return print('Invalid menu input.')
     return menu_input   
@@ -67,13 +74,15 @@ def get_menu_input():
 def add_task(task_list):
     pass
 
+def mark_complete(task_list):
+    pass
+
 def edit_task(task_list):
     pass
 
 def remove_task(task_list):
     pass
 
-#
 def save_to_file(task_list):
     pass
 
