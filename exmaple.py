@@ -65,17 +65,29 @@ def get_menu_input():
 # TODO : Implement these tasks. Each should take a task_list arguement and returns the updated version of the list after
 # item has been added, removed, edited, or completed.
 def add_task(task_list):
-    pass
+    to_add = input('\nEnter Description:-->')
+    if to_add != None:
+        new_task = {"name": to_add, "completed": False}
+        task_json = json.dumps(new_task)  # Convert the dictionary to a JSON string
+        task_list.append(json.loads(task_json))  # Append the JSON string as a dictionary
+        save_task_list(task_list)  # Save the updated task list
+        return task_list
 
-def edit_task(task_list):
-    pass
+def save_task_list(task_list):
+    file_name = './Tasks.json'
+    with open(file_name, 'w') as tasks_json_file:
+        json.dump(task_list, tasks_json_file)
 
 def remove_task(task_list):
-    pass
+    display('WITH_NUMBERS', task_list)
+    index_number = int(input('Select the item to remove: '))
+    task_list.pop(index_number - 1)  # Remove the task from the list
 
 #
-def save_to_file(task_list):
-    pass
+def save_task_list(task_list):
+    file_name = './Tasks.json'
+    with open(file_name, 'w') as tasks_json_file:
+        json.dump(task_list, tasks_json_file)
 
 # Is this where we want the add function?
 
