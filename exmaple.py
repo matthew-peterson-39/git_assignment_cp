@@ -3,7 +3,7 @@ import json
 
 def main():
     # load list.json
-    TASK_JSON = './python/tasks.json'
+    TASK_JSON = 'tasks.json'
     task_list = initialize_task_list(TASK_JSON)
     display_menu()
     menu_input = get_menu_input()
