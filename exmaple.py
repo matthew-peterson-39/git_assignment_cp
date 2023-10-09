@@ -73,13 +73,12 @@ def add_task(task_list):
         save_task_list(task_list)  # Save the updated task list
         return task_list
 
-def save_task_list(task_list):
-    file_name = './Tasks.json'
-    with open(file_name, 'w') as tasks_json_file:
-        json.dump(task_list, tasks_json_file)
+def edit_task(task_list):
+     display_with_numbers(task_list)
+     index_number = int(input('Select the item to edit: '))
 
 def remove_task(task_list):
-    display('WITH_NUMBERS', task_list)
+    display_with_numbers(task_list)
     index_number = int(input('Select the item to remove: '))
     task_list.pop(index_number - 1)  # Remove the task from the list
 
