@@ -18,7 +18,7 @@ def main():
     elif menu_input == 4: #Remove Task
         remove_task(task_list)
     elif menu_input == 5: #Edit Task
-        pass
+        edit_task(task_list)
         
 
     return print('Program Finished.')
@@ -50,17 +50,20 @@ def display_without_numbers(task_list):
             print(f'{item["name"]} [x]')
         else:
             print(f'{item["name"]} [ ]')
+    print("This is your moment")
     return
 
 def display_with_numbers(task_list):
-    list_number = 1
+    list_number = 0
     print("\n*** TODO LIST ***\n")
     for item in task_list:
+        list_number += 1
         if item["completed"] == True:
             print(f'{list_number}. {item["name"]} [x]')
         else:
             print(f'{list_number}. {item["name"]} [ ]')
-        list_number += 1
+        
+    print("Your goals are worthwhile")
     return
 
 def get_int_input(prompt): #NOTE if we are off on index, this is why 
@@ -84,7 +87,7 @@ def add_task(task_list):
     task_list.append({"name": task_name, "completed": False})
     save_task_list(task_list)
     display_with_numbers(task_list)
-    return task_list
+    return # task_list
 
 def mark_complete(task_list):
     display_with_numbers(task_list)
@@ -97,9 +100,10 @@ def mark_complete(task_list):
     else:
         complete_task["completed"] = True
         print("You have completed your task!")
+    task_list = task_list
     save_task_list(task_list)
     print(complete_task)
-    return task_list
+    return # task_list
     
 
 def edit_task(task_list):
@@ -107,7 +111,8 @@ def edit_task(task_list):
     index =get_int_input('Which task do you want to edit?')
     task_list[index - 1] = get_str_input('Enter task name: ')
     save_task_list(task_list)
-    return task_list
+    display_with_numbers(task_list)
+    return  # task_list
 
 def remove_task(task_list):
     display_with_numbers(task_list)
@@ -115,10 +120,11 @@ def remove_task(task_list):
     task_list.pop(index - 1)
     save_task_list(task_list)
     display_with_numbers(task_list)
-    return task_list
+    return # task_list
 
 def save_task_list(task_list):
     with open(TASK_JSON, 'w') as new_save:
         json.dump(task_list, new_save)
+        task_list = task_list
 
 main()
