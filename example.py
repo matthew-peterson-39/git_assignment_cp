@@ -1,11 +1,11 @@
 import os
 import json
 
-TASK_JSON = 'tasks.json'
+json_file = 'tasks.json'
 
 def main():
     # load list.json
-    task_list = initialize_task_list(TASK_JSON)
+    task_list = initialize_task_list(json_file)
     display_menu()
     menu_input = get_int_input('Menu')
     print(menu_input)
@@ -25,18 +25,18 @@ def main():
 
 # Returns a list of objects if file is found with items. If file is not found, or file is empty, 
 # a file is created and an empty list is returned.s 
-def initialize_task_list(TASK_JSON):
-    if os.path.exists(TASK_JSON):
-        with open(TASK_JSON) as TASK_JSON:
+def initialize_task_list(task_json_filename):
+    if os.path.exists(task_json_filename):
+        with open(task_json_filename) as json_file:
             try:
-                doc = json.load(TASK_JSON)
+                doc = json.load(json_file)
             except json.JSONDecodeError:
                 doc = []
             finally:
                 return doc
     else:
-        with open(TASK_JSON, 'w') as TASK_JSON:
-            json.dump([], TASK_JSON)
+        with open(task_json_filename, 'w') as json_file:
+            json.dump([], json_file)
             doc = []
         return doc
 
@@ -46,10 +46,13 @@ def display_menu():
 def display_without_numbers(task_list):
     print("\n*** TODO LIST ***\n")
     for item in task_list:
-        if item["completed"] == True:
-            print(f'{item["name"]} [x]')
+        if isinstance(item, dict) and "name" in item and "completed" in item: 
+            if item["completed"] == True:
+                print(f'{item["name"]} [x]')
+            else:
+                print(f'{item["name"]} [ ]')
         else:
-            print(f'{item["name"]} [ ]')
+            print(f"Invalid entry found: {item}")
     print("This is your moment")
     return
 
@@ -103,16 +106,16 @@ def mark_complete(task_list):
     task_list = task_list
     save_task_list(task_list)
     print(complete_task)
-    return # task_list
+    return 
     
 
 def edit_task(task_list):
     display_with_numbers(task_list)
-    index =get_int_input('Which task do you want to edit?')
-    task_list[index - 1] = get_str_input('Enter task name: ')
+    index = get_int_input('Which task do you want to edit?')
+    task_list[index - 1]["name"] = get_str_input('Enter new task name: ')
     save_task_list(task_list)
     display_with_numbers(task_list)
-    return  # task_list
+    return 
 
 def remove_task(task_list):
     display_with_numbers(task_list)
@@ -120,11 +123,11 @@ def remove_task(task_list):
     task_list.pop(index - 1)
     save_task_list(task_list)
     display_with_numbers(task_list)
-    return # task_list
+    return 
 
 def save_task_list(task_list):
-    with open(TASK_JSON, 'w') as new_save:
+    with open(json_file, 'w') as new_save:
         json.dump(task_list, new_save)
-        task_list = task_list
+        
 
 main()
